@@ -56,6 +56,11 @@ class Tetris:
     def select_piece(self):
         return self.pieces[random.randrange(len(self.pieces))]
 
+    def get_random_position(self, piece):
+        piece_size = len(piece)
+        y = random.randrange(1, self.size - piece_size)
+        return [0, y]
+
     @staticmethod
     def move_left(piece_position):
         next_position = [piece_position[0], piece_position[1] - 1]
@@ -169,7 +174,7 @@ class Tetris:
             if not self.can_move_down(board, piece_position, piece):
                 self.update_board(board, piece_position, piece)
                 piece = self.select_piece()
-                piece_position = [0, (self.size-2)//2]
+                piece_position = self.get_random_position(piece)
 
             self.display_board(board, piece_position, piece)
             print(instruction)
